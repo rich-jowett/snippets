@@ -57,5 +57,6 @@ deploy:
   - on:
       branch: master
       condition: -z $(git tag --points-at $TRAVIS_COMMIT)
+      php: 7.4
     provider: script
     script: $TRAVIS_BUILD_DIR/.travis/travis-release.sh
