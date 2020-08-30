@@ -5,6 +5,7 @@
  *
  * @author Rich Jowett <rich@jowett.me>
  */
+
 declare(strict_types=1);
 
 namespace App\Http\Traits;
@@ -18,7 +19,8 @@ use Illuminate\Support\Str;
  */
 trait UsesUuid
 {
-    protected static function bootUsesUuid() {
+    protected static function bootUsesUuid()
+    {
         static::creating(function ($model) {
             if (! $model->getKey()) {
                 $model->{$model->getKeyName()} = (string) Str::uuid();
@@ -26,12 +28,18 @@ trait UsesUuid
         });
     }
 
-    public function getIncrementing()
+    /**
+     * @return bool
+     */
+    public function getIncrementing(): bool
     {
         return false;
     }
 
-    public function getKeyType()
+    /**
+     * @return string
+     */
+    public function getKeyType(): string
     {
         return 'string';
     }

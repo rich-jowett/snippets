@@ -1,5 +1,9 @@
+# Mac development
 .idea
 *DS_Store
+
+# CI Tooling
+.travis/travis_ci_deploy_key
 
 /node_modules
 /public/hot
