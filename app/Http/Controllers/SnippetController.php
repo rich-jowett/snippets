@@ -31,7 +31,7 @@ class SnippetController extends Controller
      */
     public function index()
     {
-        return Snippet::all();
+        return Snippet::paginate();
     }
 
     /**
