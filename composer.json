@@ -27,6 +27,7 @@
     "config": {
         "optimize-autoloader": true,
         "preferred-install": "dist",
+        "discard-changes" : true,
         "sort-packages": true
     },
     "extra": {
