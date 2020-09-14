@@ -1,28 +1,33 @@
 <?php
 
-/** @var \Illuminate\Database\Eloquent\Factory $factory */
+namespace Database\Factories;
 
 use App\Snippet;
-use Faker\Generator as Faker;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
-/*
-|--------------------------------------------------------------------------
-| Model Factories
-|--------------------------------------------------------------------------
-|
-| This directory should contain each of the model factory definitions for
-| your application. Factories provide a convenient way to generate new
-| model instances for testing / seeding your application's database.
-|
-*/
+class SnippetFactory extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = Snippet::class;
 
-$factory->define(Snippet::class, function (Faker $faker) {
-    $createdAt = $faker->dateTimeThisMonth();
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition(): array
+    {
+        $createdAt = $this->faker->dateTimeThisMonth();
 
-    return [
-        'id' => $faker->uuid,
-        'code' => base64_encode($faker->sentences(3, true)),
-        'created_at' => $createdAt,
-        'updated_at' => $faker->dateTimeBetween($createdAt),
-    ];
-});
+        return [
+            'id' => $this->faker->uuid,
+            'code' => base64_encode($this->faker->sentences(3, true)),
+            'created_at' => $createdAt,
+            'updated_at' => $this->faker->dateTimeBetween($createdAt),
+        ];
+    }
+}
