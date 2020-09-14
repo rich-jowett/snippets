@@ -11,6 +11,7 @@ declare(strict_types=1);
 namespace App;
 
 use App\Http\Traits\UsesUuid;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -22,6 +23,7 @@ use Illuminate\Database\Eloquent\Model;
 class Snippet extends Model
 {
     use UsesUuid;
+    use HasFactory;
 
     protected $fillable = ['code'];
 }
