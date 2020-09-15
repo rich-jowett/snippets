@@ -2,7 +2,7 @@
 
 namespace Database\Factories;
 
-use App\Snippet;
+use App\Models\Snippet;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class SnippetFactory extends Factory
