@@ -11,7 +11,7 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 
 use App\Http\Requests\SnippetWrite;
-use App\Snippet;
+use App\Models\Snippet;
 use Exception;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\JsonResponse;

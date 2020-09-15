@@ -2,7 +2,7 @@
 
 namespace Tests\Feature;
 
-use App\Snippet;
+use App\Models\Snippet;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
