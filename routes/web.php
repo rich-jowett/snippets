@@ -29,36 +29,29 @@ Route::get(
         $query = http_build_query(
             [
                 'client_id' => '9189154e-64aa-45ae-ba55-1a178c20012d',
-                'redirect_uri' => 'http://localhost:8000/callback',
+                'redirect_uri' => config('app.url') . '/callback',
                 'response_type' => 'code',
                 'scope' => '',
                 'state' => $state,
             ]
         );
 
-
-        Log::info('Redirecting...');
-
-        return redirect('http://localhost:8001/oauth/authorize?' . $query);
+        return redirect(config('app.url') . '/oauth/authorize?' . $query);
     }
 );
 
 Route::get('/callback', function (Request $request) {
-    Log::info('We got here...');
-
     $http = new GuzzleHttp\Client();
 
-    $response = $http->post('http://localhost:8001/oauth/token', [
+    $response = $http->post(config('app.url') . '/oauth/token', [
         'form_params' => [
             'grant_type' => 'authorization_code',
             'client_id' => '9189154e-64aa-45ae-ba55-1a178c20012d',
             'client_secret' => 'RfCEfe9AswDq7byQaDAF8v3LtU6MhJMjuvzVsrt3',
-            'redirect_uri' => 'http://localhost:8000/callback',
+            'redirect_uri' => config('app.url') . '/callback',
             'code' => $request->code,
         ],
     ]);
-
-    Log::info('We got to the end too');
 
     return json_decode((string)$response->getBody(), true, 512, JSON_THROW_ON_ERROR);
 });
