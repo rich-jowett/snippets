@@ -72,12 +72,13 @@ install:
 
 ## Serve the application (one for the app and one for OAuth)
 serve:
-	php artisan serve --host=localhost --port=8000 &
-	php artisan serve --host=localhost --port=8001 &
+	@php artisan serve --host=localhost --port=8000 &
+	@php artisan serve --host=localhost --port=8001 &
 
 ## Stop serving the application
 unserve:
-	ps -efw | grep -E -i -w 'localhost:800(1|0)(.*)/snippets/server.php'
+	@ps -efw | grep -E -i -w 'localhost:800(1|0)(.*)/snippets/server.php' | tr -s " " | cut -d" " -f3 | xargs kill
+	@echo All local applications stopped
 
 ## Update / create composer.lock file
 update:
