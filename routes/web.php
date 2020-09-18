@@ -1,10 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Http;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,7 +26,7 @@ Route::get(
 
         $query = http_build_query(
             [
-                'client_id' => '9189154e-64aa-45ae-ba55-1a178c20012d',
+                'client_id' => config('snippets.oauth.client.id'),
                 'redirect_uri' => config('app.url') . '/callback',
                 'response_type' => 'code',
                 'scope' => '',
@@ -36,18 +34,18 @@ Route::get(
             ]
         );
 
-        return redirect(config('app.url') . '/oauth/authorize?' . $query);
+        return redirect(config('snippets.oauth.server.url') . '/authorize?' . $query);
     }
 );
 
 Route::get('/callback', function (Request $request) {
     $http = new GuzzleHttp\Client();
 
-    $response = $http->post(config('app.url') . '/oauth/token', [
+    $response = $http->post(config('snippets.oauth.server.url') . '/token', [
         'form_params' => [
             'grant_type' => 'authorization_code',
-            'client_id' => '9189154e-64aa-45ae-ba55-1a178c20012d',
-            'client_secret' => 'RfCEfe9AswDq7byQaDAF8v3LtU6MhJMjuvzVsrt3',
+            'client_id' => config('snippets.oauth.client.id'),
+            'client_secret' => config('snippets.oauth.client.secret'),
             'redirect_uri' => config('app.url') . '/callback',
             'code' => $request->code,
         ],

@@ -1,8 +1,6 @@
 # Snippets
-<p align="center">
-    <a href="https://travis-ci.com/rich-jowett/snippets"><img src="https://travis-ci.com/rich-jowett/snippets.svg?branch=master" alt="Build Status"></a>
-    <img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License">
-</p>
+<a href="https://travis-ci.com/rich-jowett/snippets"><img src="https://travis-ci.com/rich-jowett/snippets.svg?branch=master" alt="Build Status"></a>
+<img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License">
 
 ## About Snippets
 This project will help developers store their code-snippets and scratch files in one central place.  
@@ -10,6 +8,13 @@ This project will help developers store their code-snippets and scratch files in
 I am expecting that the architecture of the finished project will be very different to what's in this repo right now.  One
 of the motivations for this project is to learn Laravel.  Eventually, I would expect to separate out the front and back
 end logic and probably use a front-end like Angular.
+
+## Installing and Setup
+A Makefile exists to aid setup.  You should be able to do this:
+```shell script
+$ make build
+$ make install
+```
 
 ## Roadmap
 I'm going to build code in this order:
