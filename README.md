@@ -16,6 +16,11 @@ $ make build
 $ make install
 ```
 
+Note, that the `install` command of the Makefile to work on Mac OSX you must use GnuSed (rather than the default once available on OSX)
+```shell script
+$ brew install gnu-sed
+```
+
 ## Roadmap
 I'm going to build code in this order:
 
