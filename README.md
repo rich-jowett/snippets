@@ -14,6 +14,7 @@ A Makefile exists to aid setup.  You should be able to do this:
 ```shell script
 $ make build
 $ make install
+$ make setup
 ```
 
 Note, that the `install` command of the Makefile to work on Mac OSX you must use GnuSed (rather than the default once available on OSX)

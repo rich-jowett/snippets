@@ -1,4 +1,4 @@
-.PHONY: help build clean install serve unserve update test
+.PHONY: help build clean install serve setup unserve update test
 
 include .env
 
@@ -57,18 +57,25 @@ clean:
 	php artisan route:clear
 	rm -rf vendor/ node_modules/ storage/logs/*.log
 
-## Setup all the required settings for the app
+## Install all the required components for the app
 install:
 	composer run post-root-package-install
 	composer run post-create-project-cmd
 	php artisan migrate
 	php artisan passport:install
+
+## Setup the application
+setup:
 	$(eval SOMETHING=$(shell sh -c "php artisan passport:client --no-interaction --name=\"Snippets API\" --redirect_uri=$(APP_URL)/callback | cut -s -d: -f2 | tr '\n' ':' | tr -d '[:space:]'"))
 	$(eval CLIENT_ID=$(firstword $(subst :, ,$(SOMETHING))))
 	$(eval CLIENT_SECRET=$(lastword $(subst :, ,$(SOMETHING))))
-	@sed "/^OAUTH_CLIENT_ID=/{h;s/=.*/=${CLIENT_ID}/};${x;/^$/{s//OAUTH_CLIENT_ID=$(CLIENT_ID)/;H};x}" -i .env
-	@sed '/^OAUTH_CLIENT_SECRET=/{h;s/=.*/=$(CLIENT_SECRET)/};${x;/^$/{s//OAUTH_CLIENT_SECRET=$(CLIENT_SECRET)/;H};x}' -i .env
-	@echo Snippets API OAUTH client was created, your .env file was updated.
+
+	@sed -i "s/OAUTH_CLIENT_ID=.*/OAUTH_CLIENT_ID=${CLIENT_ID}/g" .env
+	@sed -i "s/OAUTH_CLIENT_SECRET=.*/OAUTH_CLIENT_SECRET=${CLIENT_SECRET}/g" .env
+	@grep -q "^OAUTH_CLIENT_ID" .env || echo "OAUTH_CLIENT_ID=$(CLIENT_ID)" >> .env
+	@grep -q "^OAUTH_CLIENT_SECRET" .env || echo "OAUTH_CLIENT_SECRET=$(CLIENT_SECRET)" >> .env
+
+	@echo "Snippets API OAUTH client ID: $(CLIENT_ID) was created, your .env file was updated."
 
 ## Serve the application (one for the app and one for OAuth)
 serve:
