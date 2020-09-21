@@ -18,7 +18,7 @@ class SnippetTest extends TestCase
     {
         parent::setUp();
 
-        Snippet::factory()->count(23)->create();
+        Snippet::factory()->times(23)->create();
     }
 
     /**

@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Snippet;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class SnippetFactory extends Factory
@@ -26,6 +27,7 @@ class SnippetFactory extends Factory
         return [
             'id' => $this->faker->uuid,
             'code' => base64_encode($this->faker->sentences(3, true)),
+            'created_by' => (User::factory()->create())->id,
             'created_at' => $createdAt,
             'updated_at' => $this->faker->dateTimeBetween($createdAt),
         ];
