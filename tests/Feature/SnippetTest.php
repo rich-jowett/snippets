@@ -3,8 +3,10 @@
 namespace Tests\Feature;
 
 use App\Models\Snippet;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Laravel\Passport\Passport;
 use Tests\TestCase;
 
 class SnippetTest extends TestCase
@@ -26,6 +28,10 @@ class SnippetTest extends TestCase
      */
     public function testCollectionPageOne()
     {
+        Passport::actingAs(
+            User::factory()->create()
+        );
+
         $response = $this->json('GET', '/api/snippets');
 
         $response->assertJsonStructure(
@@ -61,6 +67,10 @@ class SnippetTest extends TestCase
      */
     public function testCollectionPageTwo()
     {
+        Passport::actingAs(
+            User::factory()->create()
+        );
+
         $response = $this->json('GET', '/api/snippets/?page=2');
 
         $response->assertJsonStructure(
