@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-Route::prefix('snippets')->group(function() {
+Route::prefix('snippets')->middleware('auth:api')->group(function() {
 
     Route::get('/', "SnippetController@index");
     Route::post('/', "SnippetController@store");

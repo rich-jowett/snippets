@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Models\Team;
 use App\Policies\TeamPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use Laravel\Passport\Passport;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -26,6 +27,10 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+        Passport::routes();
+        Passport::hashClientSecrets();
+
+        Passport::tokensExpireIn(now()->addHour());
+        Passport::refreshTokensExpireIn(now()->addDays(90));
     }
 }
