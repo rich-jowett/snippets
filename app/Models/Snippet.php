@@ -25,5 +25,5 @@ class Snippet extends Model
     use HasFactory;
     use UsesUuid;
 
-    protected $fillable = ['code'];
+    protected $fillable = ['code', 'created_by'];
 }

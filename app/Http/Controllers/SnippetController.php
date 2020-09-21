@@ -15,6 +15,7 @@ use App\Models\Snippet;
 use Exception;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Auth;
 
 /**
  * Class SnippetController
@@ -53,7 +54,10 @@ class SnippetController extends Controller
      */
     public function store(SnippetWrite $snippetWrite): Snippet
     {
-        $snippet = new Snippet($snippetWrite->validated());
+        $snippetFields = $snippetWrite->validated();
+        $snippetFields['created_by'] = (Auth::user())->id;
+
+        $snippet = new Snippet($snippetFields);
         $snippet->save();
 
         return $snippet;
