@@ -22,8 +22,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Snippet extends Model
 {
-    use UsesUuid;
     use HasFactory;
+    use UsesUuid;
 
     protected $fillable = ['code'];
 }
