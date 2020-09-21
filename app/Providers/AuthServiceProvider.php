@@ -3,7 +3,9 @@
 namespace App\Providers;
 
 use App\Models\Team;
+use App\Models\User;
 use App\Policies\TeamPolicy;
+use App\Policies\UserPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Laravel\Passport\Passport;
 
@@ -16,6 +18,7 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected $policies = [
         Team::class => TeamPolicy::class,
+        User::class => UserPolicy::class,
     ];
 
     /**
