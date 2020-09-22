@@ -14,11 +14,15 @@ class SnippetTest extends TestCase
     use RefreshDatabase;
     use WithFaker;
 
+    protected $user;
+
     public function setUp(): void
     {
         parent::setUp();
 
-        Snippet::factory()->count(23)->create();
+        $this->user = User::factory()->create();
+
+        Snippet::factory()->times(23)->create(['created_by' => $this->user->id]);
     }
 
     /**
@@ -28,12 +32,9 @@ class SnippetTest extends TestCase
      */
     public function testCollectionPageOne()
     {
-        Passport::actingAs(
-            User::factory()->create()
-        );
+        Passport::actingAs($this->user);
 
         $response = $this->json('GET', '/api/snippets');
-
         $response->assertJsonStructure(
             [
                 'current_page',
@@ -67,9 +68,7 @@ class SnippetTest extends TestCase
      */
     public function testCollectionPageTwo()
     {
-        Passport::actingAs(
-            User::factory()->create()
-        );
+        Passport::actingAs($this->user);
 
         $response = $this->json('GET', '/api/snippets/?page=2');
 
@@ -96,6 +95,23 @@ class SnippetTest extends TestCase
         $response->assertJsonPath('to', 23);
         $response->assertJsonPath('total', 23);
 
+        $response->assertStatus(200);
+    }
+
+    /**
+     * Test that by default, a User is unable to see other Users' snippets
+     */
+    public function testOtherUsersSnippetsAreHidden()
+    {
+        Passport::actingAs(
+            User::factory()->create()
+        );
+
+        $response = $this->json('GET', '/api/snippets/');
+        $response->assertJsonPath('current_page', 1);
+        $response->assertJsonPath('from', null);
+        $response->assertJsonPath('to', null);
+        $response->assertJsonPath('total', 0);
         $response->assertStatus(200);
     }
 }

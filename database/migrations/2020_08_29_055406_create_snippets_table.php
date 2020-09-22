@@ -28,6 +28,7 @@ class CreateSnippetsTable extends Migration
         Schema::create('snippets', static function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->text('code');
+            $table->foreignUuid('created_by')->index();
             $table->timestamps();
         });
     }

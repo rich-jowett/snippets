@@ -16,7 +16,6 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::prefix('snippets')->middleware('auth:api')->group(function() {
-
     Route::get('/', "SnippetController@index");
     Route::post('/', "SnippetController@store");
 
@@ -25,5 +24,17 @@ Route::prefix('snippets')->middleware('auth:api')->group(function() {
         Route::patch('/', "SnippetController@update");
         Route::put('/', "SnippetController@update");
         Route::delete('/', "SnippetController@destroy");
+    });
+});
+
+Route::prefix('users')->middleware('auth:api')->group(function() {
+    Route::get('/', "UserController@index");
+    Route::post('/', "UserController@store");
+
+    Route::prefix('{user}')->group(function() {
+        Route::get('/', "UserController@show");
+        Route::patch('/', "UserController@update");
+        Route::put('/', "UserController@update");
+        Route::delete('/', "UserController@destroy");
     });
 });
