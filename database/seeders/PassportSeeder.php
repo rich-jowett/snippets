@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use Faker\Provider\Uuid;
 use Firebase\JWT\JWT;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
