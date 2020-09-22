@@ -35,8 +35,8 @@ class UserController extends Controller
      */
     public function index()
     {
+        /** @var User $authenticatedUser */
         $authenticatedUser = Auth::user();
-
         if ($authenticatedUser->can('view_all_users')) {
             return User::paginate();
         }
@@ -48,7 +48,14 @@ class UserController extends Controller
                     ->toArray(),
                 'id'
             );
-            return User::whereIn('current_team_id', $teamIds)->paginate();
+
+            $allRelatedUsers = User::select('users.*')
+                ->leftJoin('teams', 'users.id', '=', 'teams.user_id')
+                ->leftJoin('team_user', 'users.id', '=', 'team_user.user_id')
+                ->whereIn('teams.id', $teamIds)
+                ->orWhereIn('team_user.team_id', $teamIds);
+
+            return $allRelatedUsers->paginate();
         }
 
         return User::where('id', '=', $authenticatedUser->id)->paginate();

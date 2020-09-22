@@ -34,12 +34,30 @@ class SnippetController extends Controller
      */
     public function index()
     {
+        /** @var User $authenticatedUser */
         $authenticatedUser = Auth::user();
-
         if ($authenticatedUser->can('view_all_snippets')) {
             return Snippet::paginate();
         }
-        
+
+        if ($authenticatedUser->allTeams()) {
+            $teamIds = array_column(
+                $authenticatedUser
+                    ->allTeams()
+                    ->toArray(),
+                'id'
+            );
+
+            $snippetsForRelatedUsers = Snippet::select('snippets.*')
+                ->join('users', 'snippets.created_by', '=', 'users.id')
+                ->leftJoin('teams', 'users.id', '=', 'teams.user_id')
+                ->leftJoin('team_user', 'users.id', '=', 'team_user.user_id')
+                ->whereIn('teams.id', $teamIds)
+                ->orWhereIn('team_user.team_id', $teamIds);
+
+            return $snippetsForRelatedUsers->paginate();
+        }
+
         return Snippet::where('created_by', '=', $authenticatedUser->id)->paginate();
     }
 
