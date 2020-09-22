@@ -14,7 +14,7 @@ class SnippetTest extends TestCase
     use RefreshDatabase;
     use WithFaker;
 
-    protected User $user;
+    protected $user;
 
     public function setUp(): void
     {
