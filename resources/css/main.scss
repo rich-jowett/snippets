@@ -1,0 +1,222 @@
+@import "resets";
+@import "palette";
+@import "hamburger";
+
+$background-colour: jowett-colour('background');
+
+$header-about-colour: jowett-colour('accent');
+
+$navigation-underline-active: jowett-colour('primary');
+$navigation-underline-hover: jowett-colour('accent');
+
+$text-accent: jowett-colour('accent');
+$text-colour: jowett-colour('foreground');
+
+nav.navigation {
+    .navigation__header {
+        @extend .accessibility__title;
+    }
+
+    .navigation__links {
+        .navigation__link {
+            display: inline-block;
+            margin: 0 25rem;
+
+            @media (max-width: 1420px) {
+                margin: 0 18rem;
+            }
+
+            a {
+                color: $text-colour;
+                font-size: 13rem;
+                font-weight: 600;
+                letter-spacing: 2rem;
+                text-decoration: none;
+                text-transform: uppercase;
+                padding-bottom: 4rem;
+
+                &:hover {
+                    border-bottom: 2px solid $navigation-underline-hover;
+                }
+            }
+
+            a.navigation__link--active {
+                border-bottom: 2px solid $navigation-underline-active;
+            }
+
+            &:last-child {
+                margin-right: 0;
+            }
+        }
+
+        @media (max-width: 1200px) {
+            .navigation__link--social {
+                display: none;
+            }
+        }
+    }
+}
+
+.accessibility__title {
+    display: none;
+}
+
+.centralise {
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+}
+
+.full-height {
+    height: 100vh;
+}
+
+.header {
+    z-index: 1;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+}
+
+.header__authentication {
+    position: absolute;
+    top: 10rem;
+    right: 10rem;
+    box-shadow: none;
+}
+
+.nav-active {
+    .header__nav {
+        .navigation {
+            display: block !important;
+            position: absolute;
+            left: 0;
+            top: 50rem;
+            width: 100%;
+
+            .navigation__link {
+                display: block;
+                text-align: center;
+                padding: 35rem;
+            }
+        }
+    }
+
+    .page__content {
+        display: none;
+    }
+}
+
+.header__content {
+    display: flex;
+    margin: 0 auto;
+    padding: 16rem 16rem 8rem;
+
+    @media (min-width: 1000px) {
+        width: 80%;
+    }
+
+    .header__logo {
+        flex: 0 0 20rem;
+
+        .logo {
+            height: 30rem;
+        }
+    }
+
+    .header__nav {
+        flex: 1;
+        text-align: right;
+
+        .hamburger {
+            outline: none;
+            display: none;
+
+            @media (max-width: 1000px) {
+                display: inline-block;
+            }
+        }
+
+        .navigation {
+            @media (max-width: 1000px) {
+                display: none;
+            }
+        }
+    }
+}
+
+.logo {
+    height: 80rem;
+
+    @media (max-width: 450px) {
+        height: 60rem;
+    }
+
+    @media (max-width: 350px) {
+        height: 40rem;
+    }
+
+    @media (max-width: 250px) {
+        height: 20rem;
+    }
+}
+
+.page {
+    display: flex;
+    color: $text-colour;
+}
+
+.page__content {
+    background: none;
+
+    .content {
+        margin: 0 auto;
+        padding: 20rem;
+        text-align: justify;
+
+        @media (min-width: 1000px) {
+            width: 80%;
+        }
+
+        h1 {
+            color: $header-about-colour;
+            font-size: 25rem;
+            line-height: 1.5em;
+            margin-bottom: 1.5rem;
+        }
+
+        p {
+            margin: 1em 0;
+        }
+    }
+}
+
+.page__splash {
+    @extend .centralise;
+    @extend .page;
+    @extend .full-height;
+    background-color: $background-colour;
+
+    header {
+        h1 {
+            margin-bottom: 30rem;
+        }
+    }
+
+    @media (max-width: 550px) {
+        nav.navigation {
+            .navigation__links {
+                .navigation__link {
+                    display: block;
+                    padding-bottom: 35rem;
+
+                    h3 > a {
+                        font-size: 20rem;
+                    }
+
+                    &:last-child {
+                        padding-bottom: 0rem;
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,14 @@
+
+$jowett-colours: (
+    'primary': #1F89C7,
+    'secondary': #5C1FC7,
+    'tertiary': #B01FC7,
+    'accent': #89C71F,
+    'warning': #C75C1F,
+    'foreground': #636B6F,
+    'background': #F4F4F4
+);
+
+@function jowett-colour($key: 'primary') {
+    @return map-get($jowett-colours, $key);
+}

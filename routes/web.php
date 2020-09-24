@@ -19,6 +19,18 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/get-in-touch', function () {
+    return view('get-in-touch');
+});
+
+Route::get('/rich-jowett', function () {
+    return view('rich-jowett');
+});
+
+Route::get('/snippets', function () {
+    return view('snippets');
+});
+
 Route::get(
     '/redirect',
     function (Request $request) {
